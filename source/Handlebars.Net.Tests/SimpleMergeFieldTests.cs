@@ -42,11 +42,11 @@ namespace Handlebars.Net.Test {
 			var format = "MMM dd, yyyy hh:mm";
 			var sut = new SimpleMergeField( "this", format );
 
-			var resolveTo = new DateTime(2014, 4, 26, 1, 2, 3);
+			var resolveTo = new DateTime( 2014, 4, 26, 1, 2, 3 );
 
 			var result = sut.Evaluate( resolveTo );
 
-			Assert.AreEqual( resolveTo.ToString(format), result );
+			Assert.AreEqual( resolveTo.ToString( format ), result );
 		}
 
 		[TestMethod]
@@ -67,6 +67,15 @@ namespace Handlebars.Net.Test {
 			var result = sut.Evaluate( new { AnotherField = "Bananas" } );
 
 			Assert.AreEqual( "", result );
+		}
+
+		[TestMethod]
+		public void SimpleMergeFieldEquals() {
+			Assert.AreEqual( new SimpleMergeField( "FieldName", "Format" ), new SimpleMergeField( "FieldName", "Format" ) );
+			Assert.AreEqual( new SimpleMergeField( "FieldName"), new SimpleMergeField( "FieldName") );
+			Assert.AreNotEqual( new SimpleMergeField( "FieldName1", "Format" ), new SimpleMergeField( "FieldName2", "Format" ) );
+			Assert.AreNotEqual( new SimpleMergeField( "FieldName", "Format1" ), new SimpleMergeField( "FieldName", "Format2" ) );
+			Assert.AreNotEqual( new SimpleMergeField( "FieldName1", "Format1" ), new SimpleMergeField( "FieldName2", "Format2" ) );
 		}
 
 		#region Supporting Classes
