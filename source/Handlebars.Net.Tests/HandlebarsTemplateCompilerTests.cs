@@ -7,7 +7,7 @@ namespace Handlebars.Net.Test {
 	[TestClass]
 	public class HandlebarsTemplateCompilerTests {
 		[TestMethod]
-		public void HandlebarsTemplateParserParseLiteral() {
+		public void HandlebarsTemplateCompilerLiteralTemplate() {
 			var compiler = new HandlebarsTemplateCompiler();
 
 			var actual = compiler.Compile( "Literal" );
@@ -20,8 +20,7 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
-		[Ignore]
-		public void HandlebarsTemplateParserParseSimpleMergeField() {
+		public void HandlebarsTemplateCompilerSimpleMergeFieldTemplate() {
 			var compiler = new HandlebarsTemplateCompiler();
 
 			var actual = compiler.Compile( "{{Field:Format}}" );
@@ -34,8 +33,7 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
-		[Ignore]
-		public void HandlebarsTemplateParserParseMergeAndLiteral() {
+		public void HandlebarsTemplateCompilerMergeAndLiteralTemplate() {
 			var compiler = new HandlebarsTemplateCompiler();
 
 			var actual = compiler.Compile( "Literal{{Field:Format}}" );
