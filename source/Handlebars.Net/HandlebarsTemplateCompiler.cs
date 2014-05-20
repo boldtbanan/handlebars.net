@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Handlebars.Net {
 	public class HandlebarsTemplateCompiler : ITemplateCompiler {
@@ -25,9 +26,18 @@ namespace Handlebars.Net {
 		#region ITemplateParser Members
 
 		public IEnumerable<ITemplateInstruction> Compile( string template ) {
-			return new[] { new Literal( template ) };
+			var tokens = TokenizeTemplate( template );
+			return Compile( tokens );
 		}
 
 		#endregion
+
+		public IEnumerable<ITemplateInstruction> Compile( IEnumerable<string> tokens ) {
+			return tokens.Select( x => new Literal( x ) );
+		}
+
+		public IEnumerable<string> TokenizeTemplate( string template ) {
+			return new[] { template };
+		}
 	}
 }
