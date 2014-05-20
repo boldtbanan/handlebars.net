@@ -33,7 +33,17 @@ namespace Handlebars.Net {
 		#endregion
 
 		public IEnumerable<ITemplateInstruction> Compile( IEnumerable<string> tokens ) {
-			return tokens.Select( x => new Literal( x ) );
+			var instructions = new List<ITemplateInstruction>();
+
+			var enumerator = tokens.GetEnumerator();
+
+			while ( enumerator.MoveNext() ) {
+				var token = enumerator.Current;
+
+				instructions.Add( new Literal( token ) );
+			}
+
+			return instructions;
 		}
 
 		public IEnumerable<string> TokenizeTemplate( string template ) {
