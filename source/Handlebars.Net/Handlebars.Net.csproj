@@ -41,14 +41,14 @@
   <ItemGroup>
     <Compile Include="BaseTemplateInstruction.cs" />
     <Compile Include="FieldResolver.cs" />
-    <Compile Include="HandlebarsTemplateParser.cs" />
+    <Compile Include="HandlebarsTemplateCompiler.cs" />
     <Compile Include="IFieldResolver.cs" />
     <Compile Include="ITemplateInstruction.cs" />
     <Compile Include="ITemplateInstructionParser.cs" />
-    <Compile Include="ITemplateParser.cs" />
+    <Compile Include="ITemplateCompiler.cs" />
     <Compile Include="Literal.cs" />
     <Compile Include="LoopTemplateInstruction.cs" />
-    <Compile Include="LoopTemplateInstructionParser.cs" />
+    <Compile Include="LoopTemplateInstructionCompiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleMergeField.cs" />
   </ItemGroup>

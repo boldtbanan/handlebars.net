@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Handlebars.Net {
-	public class HandlebarsTemplateParser : ITemplateParser {
+	public class HandlebarsTemplateCompiler : ITemplateCompiler {
 		// TODO: make these a configuration object
 		private const string tokenOpen = "{{";
 		private const string tokenClose = "}}";
@@ -10,7 +10,7 @@ namespace Handlebars.Net {
 		private Dictionary<string, Type> RegisteredHelpers { get; set; }
 		public List<ITemplateInstruction> Instructions { get; set; }
 
-		public HandlebarsTemplateParser() {
+		public HandlebarsTemplateCompiler() {
 			Instructions = new List<ITemplateInstruction>();
 			RegisterDefaultHelpers();
 		}
@@ -18,14 +18,14 @@ namespace Handlebars.Net {
 		private void RegisterDefaultHelpers() {
 			RegisteredHelpers = new Dictionary<string, Type>
 			{
-				{"each", typeof(LoopTemplateInstructionParser)}
+				{"each", typeof(LoopTemplateInstructionCompiler)}
 			};
 		}
 
 		#region ITemplateParser Members
 
-		public IEnumerable<ITemplateInstruction> Parse( string template ) {
-			throw new NotImplementedException();
+		public IEnumerable<ITemplateInstruction> Compile( string template ) {
+			return new[] { new Literal( template ) };
 		}
 
 		#endregion

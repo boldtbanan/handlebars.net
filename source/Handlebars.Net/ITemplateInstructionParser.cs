@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Handlebars.Net {
-	public interface ITemplateInstructionParser {
-		IEnumerable<ITemplateInstruction> Parse( string template, ITemplateParser parser );
+	public interface ITemplateInstructionCompiler {
+		IEnumerable<ITemplateInstruction> Compile( string template, ITemplateCompiler parser );
 	}
 }

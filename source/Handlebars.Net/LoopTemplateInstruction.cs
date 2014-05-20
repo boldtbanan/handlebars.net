@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Handlebars.Net {
 
-	public class LoopTemplateInstruction
-	{
-		public ITemplateParser Parser { get; set; }
-		private List<ITemplateInstruction> ChildInstructions { get; set; } 
+	public class LoopTemplateInstruction {
+		public ITemplateCompiler Compiler { get; set; }
+		private List<ITemplateInstruction> ChildInstructions { get; set; }
 
-		public LoopTemplateInstruction(ITemplateParser parser)
-		{
-			Parser = parser;
+		public LoopTemplateInstruction( ITemplateCompiler compiler ) {
+			Compiler = compiler;
 		}
 	}
 }

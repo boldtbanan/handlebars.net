@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 
 namespace Handlebars.Net {
-	public class LoopTemplateInstructionParser : ITemplateInstructionParser {
+	public class LoopTemplateInstructionCompiler : ITemplateInstructionCompiler {
 
 		#region ITemplateParser Members
 
-		public IEnumerable<ITemplateInstruction> Parse( string template, ITemplateParser parser ) {
+		public IEnumerable<ITemplateInstruction> Compile( string template, ITemplateCompiler parser ) {
 			throw new NotImplementedException();
 		}
 
