@@ -40,5 +40,13 @@ namespace Handlebars.Net {
 			return this.GetHashCode() == obj.GetHashCode()
 				|| ( FieldName.Equals( field.FieldName ) && Format.Equals( field.Format ) );
 		}
+
+		public override string ToString() {
+			return String.Format( "{{ Type: {0}, FieldName: \"{1}\", Format: {2} }}",
+				this.GetType(),
+				FieldName,
+				Format == null ? null : "\"" + Format + "\""
+			);
+		}
 	}
 }

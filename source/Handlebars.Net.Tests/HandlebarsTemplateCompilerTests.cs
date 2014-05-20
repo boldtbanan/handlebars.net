@@ -21,7 +21,7 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
-		public void HandlebarsTemplateCompilerSimpleMergeFieldTemplate() {
+		public void HandlebarsTemplateCompilerSimpleMergeField() {
 			var compiler = new HandlebarsTemplateCompiler();
 
 			var actual = compiler.Compile( "{{Field:Format}}" );
@@ -37,11 +37,12 @@ namespace Handlebars.Net.Test {
 		public void HandlebarsTemplateCompilerMergeAndLiteralTemplate() {
 			var compiler = new HandlebarsTemplateCompiler();
 
-			var actual = compiler.Compile( "Literal{{Field:Format}}" );
+			var actual = compiler.Compile( "Literal{{Field1:Format1}}{{ Field2:Format2 }}" );
 
 			var expected = new List<ITemplateInstruction> {
 				new Literal("Literal"),
-				new SimpleMergeField("Field", "Format")
+				new SimpleMergeField("Field1", "Format1"),
+				new SimpleMergeField("Field2", "Format2")
 			};
 
 			CompareInstructions( expected, actual.ToList() );
