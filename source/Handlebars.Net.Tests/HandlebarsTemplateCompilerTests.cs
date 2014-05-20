@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -44,6 +45,14 @@ namespace Handlebars.Net.Test {
 			};
 
 			CompareInstructions( expected, actual.ToList() );
+		}
+
+		[TestMethod]
+		[ExpectedException( typeof( EndOfStreamException ) )]
+		public void HandlebarsTemplateCompilerUnclosedMergeField() {
+			var compiler = new HandlebarsTemplateCompiler();
+
+			var actual = compiler.Compile( "Literal{{Field:Format" );
 		}
 
 		private void CompareInstructions( List<ITemplateInstruction> expected, List<ITemplateInstruction> actual ) {
