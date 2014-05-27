@@ -55,6 +55,7 @@
     <Compile Include="LiteralTests.cs" />
     <Compile Include="SimpleMergeFieldTests.cs" />
     <Compile Include="HandlebarsTemplateCompilerTests.cs" />
+    <Compile Include="LoopTemplateInstructionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Handlebars.Net\Handlebars.Net.csproj">
