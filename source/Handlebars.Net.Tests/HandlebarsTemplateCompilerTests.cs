@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,10 +52,10 @@ namespace Handlebars.Net.Test {
 		public void HandlebarsTemplateCompilerUnclosedMergeField() {
 			var compiler = new HandlebarsTemplateCompiler();
 
-			var actual = compiler.Compile( "Literal{{Field:Format" );
+			compiler.Compile( "Literal{{Field:Format" );
 		}
 
-		private void CompareInstructions( List<ITemplateInstruction> expected, List<ITemplateInstruction> actual ) {
+		private static void CompareInstructions( IReadOnlyList<ITemplateInstruction> expected, IReadOnlyList<ITemplateInstruction> actual ) {
 			Assert.AreEqual( expected.Count, actual.Count );
 
 			var ct = expected.Count;
