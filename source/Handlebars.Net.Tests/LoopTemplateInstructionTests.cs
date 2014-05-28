@@ -35,6 +35,20 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
+		public void LoopTemplateInstructionLoopWithMultipleChildInstructions() {
+			var sut = new LoopTemplateInstruction( "this", new List<ITemplateInstruction> {
+				new SimpleMergeField( "this" ),
+				new Literal( "@" )
+			} );
+
+			var actual = sut.Evaluate( new[]{
+				'p','i','e'
+			} );
+
+			Assert.AreEqual( "p@i@e@", actual );
+		}
+
+		[TestMethod]
 		public void LoopTemplateInstructionLoopOnNonexistantField() {
 			var sut = new LoopTemplateInstruction( "Field", new[] { new Literal( "Literal" ) } );
 
