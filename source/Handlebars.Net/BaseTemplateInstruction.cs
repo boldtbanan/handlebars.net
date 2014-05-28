@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Handlebars.Net {
@@ -6,9 +7,14 @@ namespace Handlebars.Net {
 
 		public abstract string Evaluate( Stack<object> context );
 
+		#region ITemplateInstruction Methods
+
 		public virtual string Evaluate( object scope ) {
+			if ( scope == null ) { throw new ArgumentNullException( "scope" ); }
 			return Evaluate( new Stack<object>( new[] { scope } ) );
 		}
+
+		#endregion
 
 		public virtual void Write( TextWriter writer, object scope ) {
 			Write( writer, new Stack<object>( new[] { scope } ) );

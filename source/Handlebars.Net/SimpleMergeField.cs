@@ -11,6 +11,8 @@ namespace Handlebars.Net {
 			Format = format;
 		}
 
+		#region ITemplateInstruction Members
+
 		public override string Evaluate( Stack<object> context ) {
 			var resolver = new FieldResolver();
 			var resolvedObject = resolver.Resolve( context, FieldName );
@@ -23,6 +25,8 @@ namespace Handlebars.Net {
 				? resolvedObject.ToString()
 				: String.Format( "{0:" + Format + "}", resolvedObject );
 		}
+
+		#endregion
 
 		public override int GetHashCode() {
 			unchecked {
