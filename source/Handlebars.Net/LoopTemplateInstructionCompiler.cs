@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Handlebars.Net {
@@ -13,16 +12,17 @@ namespace Handlebars.Net {
 			// must be at least an opening and closing token
 
 			var openingTag = tokenList[0];
-			var tagOpener = compiler.Ruleset.TokenHelperOpen + "each";
-			var arguments = openingTag.Substring(tagOpener.Length,
-				openingTag.Length - ( tagOpener.Length + compiler.Ruleset.TokenClose.Length ) ).Trim().Split(' ');
+			var arguments = openingTag.Substring( compiler.Ruleset.TokenHelperOpen.Length,
+				openingTag.Length - ( compiler.Ruleset.TokenHelperOpen.Length + compiler.Ruleset.TokenClose.Length ) )
+				.Trim().Split( ' ' )
+				.Skip(1);	// skip the tag
 
 			// TODO validate arguments
 
 			var childInstructions = compiler.Compile( tokenList.Skip( 1 ).Take( tokenList.Count - 2 ) );
 
 			return new[] {
-				new LoopTemplateInstruction(arguments[0], childInstructions),
+				new LoopTemplateInstruction(arguments.First(), childInstructions),
 			};
 		}
 

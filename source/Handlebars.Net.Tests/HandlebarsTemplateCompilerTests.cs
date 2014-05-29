@@ -1,6 +1,4 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,10 +6,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Handlebars.Net.Test {
 	[TestClass]
 	public class HandlebarsTemplateCompilerTests {
+		private HandlebarsTemplateCompiler compiler;
+
+		[TestInitialize]
+		public void Setup() {
+			compiler = new HandlebarsTemplateCompiler();
+		}
+
 		[TestMethod]
 		public void HandlebarsTemplateCompilerLiteralTemplate() {
-			var compiler = new HandlebarsTemplateCompiler();
-
 			var actual = compiler.Compile( "Literal" );
 
 			var expected = new List<ITemplateInstruction> {
@@ -23,8 +26,6 @@ namespace Handlebars.Net.Test {
 
 		[TestMethod]
 		public void HandlebarsTemplateCompilerSimpleMergeField() {
-			var compiler = new HandlebarsTemplateCompiler();
-
 			var actual = compiler.Compile( "{{Field:Format}}" );
 
 			var expected = new List<ITemplateInstruction> {
@@ -36,8 +37,6 @@ namespace Handlebars.Net.Test {
 
 		[TestMethod]
 		public void HandlebarsTemplateCompilerMergeAndLiteralTemplate() {
-			var compiler = new HandlebarsTemplateCompiler();
-
 			var actual = compiler.Compile( "Literal{{Field1:Format1}}{{ Field2:Format2 }}" );
 
 			var expected = new List<ITemplateInstruction> {
@@ -52,15 +51,11 @@ namespace Handlebars.Net.Test {
 		[TestMethod]
 		[ExpectedException( typeof( EndOfStreamException ) )]
 		public void HandlebarsTemplateCompilerUnclosedMergeField() {
-			var compiler = new HandlebarsTemplateCompiler();
-
 			compiler.Compile( "Literal{{Field:Format" );
 		}
 
 		[TestMethod]
 		public void HandlebarsTemplateCompilerLoopInstruction() {
-			var compiler = new HandlebarsTemplateCompiler();
-
 			var actual = compiler.Compile( "{{#each Field.OtherField}}a{{Field}}{{/each}}" );
 
 			var expected = new List<ITemplateInstruction>{
@@ -72,6 +67,24 @@ namespace Handlebars.Net.Test {
 			};
 
 			CompareInstructions( expected, actual.ToList() );
+		}
+
+		[TestMethod]
+		public void HandlebarsTemplateCompilerBlockHelperWithLeadingSpaces() {
+			var actual = compiler.Compile( "{{# each Field.OtherField}}{{/each}}" );
+
+			var expected = new List<ITemplateInstruction>{
+				new LoopTemplateInstruction("Field.OtherField",
+					new List<ITemplateInstruction>())
+			};
+
+			CompareInstructions( expected, actual.ToList() );
+		}
+
+		[TestMethod]
+		[ExpectedException( typeof( EndOfStreamException ) )]
+		public void HandlebarsTemplateCompilerUnclosedBlockHelper() {
+			compiler.Compile( "{{#each Field.OtherField}}a{{Field}}" );
 		}
 
 		private static void CompareInstructions( IReadOnlyList<ITemplateInstruction> expected, IReadOnlyList<ITemplateInstruction> actual ) {
