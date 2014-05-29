@@ -2,21 +2,16 @@
 using System.Linq;
 
 namespace Handlebars.Net {
-	public class LoopTemplateInstructionCompiler : ITemplateInstructionCompiler {
+	public class LoopTemplateInstructionCompiler : BaseTemplateInstructionCompiler {
 		#region ITemplateParser Members
 
-		public IEnumerable<ITemplateInstruction> Compile( IEnumerable<string> tokens, ITemplateCompiler compiler ) {
+		public override IEnumerable<ITemplateInstruction> Compile( IEnumerable<string> tokens, ITemplateCompiler compiler ) {
 			var tokenList = tokens.ToList();
 
 			// TODO: protect against bad token sets passed in
 			// must be at least an opening and closing token
 
-			var openingTag = tokenList[0];
-			var arguments = openingTag.Substring( compiler.Ruleset.TokenHelperOpen.Length,
-				openingTag.Length - ( compiler.Ruleset.TokenHelperOpen.Length + compiler.Ruleset.TokenClose.Length ) )
-				.Trim().Split( ' ' )
-				.Skip(1);	// skip the tag
-
+			var arguments = GetArguments( tokenList[0], compiler.Ruleset );
 			// TODO validate arguments
 
 			var childInstructions = compiler.Compile( tokenList.Skip( 1 ).Take( tokenList.Count - 2 ) );

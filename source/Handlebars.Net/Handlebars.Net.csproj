@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTemplateInstructionCompiler.cs" />
     <Compile Include="BaseTemplateInstruction.cs" />
     <Compile Include="Extensions\IEnumerableEx.cs" />
     <Compile Include="FieldResolver.cs" />
