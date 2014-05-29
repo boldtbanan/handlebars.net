@@ -2,6 +2,6 @@
 
 namespace Handlebars.Net {
 	public interface ITemplateInstructionCompiler {
-		IEnumerable<ITemplateInstruction> Compile( string template, ITemplateCompiler parser );
+		IEnumerable<ITemplateInstruction> Compile( IEnumerable<string> tokens, ITemplateCompiler parser );
 	}
 }

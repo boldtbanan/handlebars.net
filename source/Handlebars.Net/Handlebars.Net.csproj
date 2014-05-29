@@ -45,13 +45,15 @@
     <Compile Include="HandlebarsTemplateCompiler.cs" />
     <Compile Include="IFieldResolver.cs" />
     <Compile Include="ITemplateInstruction.cs" />
-    <Compile Include="ITemplateInstructionParser.cs" />
+    <Compile Include="ITemplateInstructionCompiler.cs" />
     <Compile Include="ITemplateCompiler.cs" />
     <Compile Include="Literal.cs" />
     <Compile Include="LoopTemplateInstruction.cs" />
     <Compile Include="LoopTemplateInstructionCompiler.cs" />
+    <Compile Include="TemplateParseException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleMergeField.cs" />
+    <Compile Include="TemplateRuleset.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

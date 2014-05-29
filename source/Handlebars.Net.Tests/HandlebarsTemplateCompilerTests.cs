@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,6 +55,23 @@ namespace Handlebars.Net.Test {
 			var compiler = new HandlebarsTemplateCompiler();
 
 			compiler.Compile( "Literal{{Field:Format" );
+		}
+
+		[TestMethod]
+		public void HandlebarsTemplateCompilerLoopInstruction() {
+			var compiler = new HandlebarsTemplateCompiler();
+
+			var actual = compiler.Compile( "{{#each Field.OtherField}}a{{Field}}{{/each}}" );
+
+			var expected = new List<ITemplateInstruction>{
+				new LoopTemplateInstruction("Field.OtherField",
+					new List<ITemplateInstruction> {
+						new Literal("a"),
+						new SimpleMergeField("Field")
+					})
+			};
+
+			CompareInstructions( expected, actual.ToList() );
 		}
 
 		private static void CompareInstructions( IReadOnlyList<ITemplateInstruction> expected, IReadOnlyList<ITemplateInstruction> actual ) {
