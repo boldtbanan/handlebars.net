@@ -82,6 +82,18 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
+		public void HandlebarsTemplateCompilerBlockHelperWithSpaceInClosingTag() {
+			var actual = compiler.Compile( "{{#each Field.OtherField}}{{/ each}}" );
+
+			var expected = new List<ITemplateInstruction>{
+				new LoopTemplateInstruction("Field.OtherField",
+					new List<ITemplateInstruction>())
+			};
+
+			CompareInstructions( expected, actual.ToList() );
+		}
+
+		[TestMethod]
 		[ExpectedException( typeof( EndOfStreamException ) )]
 		public void HandlebarsTemplateCompilerUnclosedBlockHelper() {
 			compiler.Compile( "{{#each Field.OtherField}}a{{Field}}" );
