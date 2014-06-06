@@ -100,6 +100,32 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
+		public void HandlebarsTemplateCompilerMultipleBlockHelpersOfSameType() {
+			var actual = compiler.Compile( "{{#each Field}}{{/each}}{{#each Field.AnotherField}}{{/each}}" );
+
+			var expected = new List<ITemplateInstruction>{
+				new LoopTemplateInstruction("Field", new List<ITemplateInstruction>()),
+				new LoopTemplateInstruction("Field.AnotherField", new List<ITemplateInstruction>())
+			};
+
+			CompareInstructions( expected, actual.ToList() );
+		}
+
+		[TestMethod]
+		public void HandlebarsTemplateCompilerNestedBlockHelpersOfSameType() {
+			var actual = compiler.Compile( "{{#each Field}}{{#each Field.AnotherField}}{{/each}}{{/each}}" );
+
+			var expected = new List<ITemplateInstruction>{
+				new LoopTemplateInstruction("Field", new List<ITemplateInstruction> {
+					new LoopTemplateInstruction("Field.AnotherField", new List<ITemplateInstruction>())
+				})
+			};
+
+			CompareInstructions( expected, actual.ToList() );
+		}
+
+
+		[TestMethod]
 		public void HandlebarsTemplateCompilerIfInstructionWithTruthyProperty() {
 			var actual = compiler.Compile( "{{#if Field}}Literal{{/if}}" );
 

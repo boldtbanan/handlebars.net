@@ -44,7 +44,7 @@ namespace Handlebars.Net {
 				var token = enumerator.Current;
 
 				if ( token.StartsWith( Ruleset.TokenHelperOpen, StringComparison.InvariantCultureIgnoreCase ) ) {
-					var helperName = token.Replace( Ruleset.TokenHelperOpen, "" ).Replace( Ruleset.TokenClose, "" ).Trim().Split( ' ' )[0];
+					var helperName = GetHelperName( token );
 					Type compilerType;
 
 					if ( !RegisteredCompilers.TryGetValue( helperName, out compilerType ) ) {
@@ -122,6 +122,11 @@ namespace Handlebars.Net {
 			return tokens;
 		}
 
+		protected string GetHelperName( string token ) {
+			return token.Replace( Ruleset.TokenHelperOpen, "" ).Replace( Ruleset.TokenClose, "" ).Trim().Split( ' ' )[0];
+		}
+
+
 		private IEnumerable<string> ExtractHelperTokenBlock( IEnumerator<string> enumerator, string tag ) {
 			var tokens = new List<string>();
 
@@ -129,12 +134,21 @@ namespace Handlebars.Net {
 				Ruleset.TokenHelperClose, tag, Ruleset.TokenClose ) );
 
 			var closingTagFound = false;
+			var nestingLevel = 0;
 
 			do {
 				var token = enumerator.Current;
 				tokens.Add( token );
 
-				closingTagFound = closingTagRegex.IsMatch( token );
+				if ( token.StartsWith( Ruleset.TokenHelperOpen, StringComparison.InvariantCultureIgnoreCase )
+					&& GetHelperName( token ) == tag ) {
+					nestingLevel++;
+				}
+
+				if ( closingTagRegex.IsMatch( token ) && --nestingLevel == 0 ) {
+					closingTagFound = true;
+					break;
+				}
 			} while ( !closingTagFound && enumerator.MoveNext() );
 
 			if ( !closingTagFound ) {
