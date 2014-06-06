@@ -38,36 +38,16 @@ namespace Handlebars.Net {
 					var resolver = new FieldResolver();
 					var result = resolver.Resolve( context, Argument );
 
-					return IsTruthy( result );
+					return result.IsTruthy();
 
 					break;
 
 				case ArgumentType.Method:
-					break;
-
-				default:
+					throw new NotImplementedException();
 					break;
 			}
 
 			throw new InvalidEnumArgumentException( "ArgumentType", ( int ) ArgumentType, typeof( ArgumentType ) );
-		}
-
-		protected bool IsTruthy( object o ) {
-			if ( o is bool ) { return ( bool ) o; }
-			if ( o is double ) { return !o.Equals(0) && !o.Equals(double.NaN); }
-			if ( o is float ) { return !o.Equals(0) && !o.Equals(float.NaN); }
-			if (o is decimal
-			    || o is int
-			    || o is long
-			    || o is short
-			    || o is uint
-			    || o is ulong
-			    || o is ushort) {
-				return !o.Equals(0);
-			}
-
-			var enumerable = ( o as IEnumerable );
-			return ( enumerable != null ) && enumerable.GetEnumerator().MoveNext();
 		}
 
 		public override bool Equals( object obj ) {

@@ -5,7 +5,7 @@ namespace Handlebars.Net.Test {
 	[TestClass]
 	public class IfTemplateInstructionTests {
 		[TestMethod]
-		public void IfTemplateInstructionWithBooleanTruePropertyArgument() {
+		public void IfTemplateInstructionWithTruthyPropertyArgument() {
 			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
 				new List<ITemplateInstruction> {
 					new Literal("Apple")
@@ -18,7 +18,7 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
-		public void IfTemplateInstructionWithBooleanFalsePropertyArgument() {
+		public void IfTemplateInstructionWithFalseyPropertyArgument() {
 			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
 				new List<ITemplateInstruction> {
 					new Literal("Apple")
@@ -26,84 +26,6 @@ namespace Handlebars.Net.Test {
 			);
 
 			var actual = instruction.Evaluate( new { Field = false } );
-
-			Assert.AreEqual( "", actual );
-		}
-
-		[TestMethod]
-		public void IfTemplateInstructionWithTruthyNumberPropertyArgument() {
-			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
-				new List<ITemplateInstruction> {
-					new Literal("Apple")
-				}
-			);
-
-			var actual = instruction.Evaluate( new { Field = 1 } );
-
-			Assert.AreEqual( "Apple", actual );
-		}
-
-		[TestMethod]
-		public void IfTemplateInstructionWithFalseyNumberPropertyArgument() {
-			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
-				new List<ITemplateInstruction> {
-					new Literal("Apple")
-				}
-			);
-
-			var actual = instruction.Evaluate( new { Field = 0 } );
-
-			Assert.AreEqual( "", actual );
-		}
-
-		[TestMethod]
-		public void IfTemplateInstructionWithTruthyStringPropertyArgument() {
-			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
-				new List<ITemplateInstruction> {
-					new Literal("Apple")
-				}
-			);
-
-			var actual = instruction.Evaluate( new { Field = "false" } );
-
-			Assert.AreEqual( "Apple", actual );
-		}
-
-		[TestMethod]
-		public void IfTemplateInstructionWithFalseyStringPropertyArgument() {
-			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
-				new List<ITemplateInstruction> {
-					new Literal("Apple")
-				}
-			);
-
-			var actual = instruction.Evaluate( new { Field = "" } );
-
-			Assert.AreEqual( "", actual );
-		}
-
-		[TestMethod]
-		public void IfTemplateInstructionWithTruthyEnumerablePropertyArgument() {
-			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
-				new List<ITemplateInstruction> {
-					new Literal("Apple")
-				}
-			);
-
-			var actual = instruction.Evaluate( new { Field = new[] { 1 } } );
-
-			Assert.AreEqual( "Apple", actual );
-		}
-
-		[TestMethod]
-		public void IfTemplateInstructionWithFalseyEnumerablePropertyArgument() {
-			var instruction = new IfTemplateInstruction( "Field", ArgumentType.Property,
-				new List<ITemplateInstruction> {
-					new Literal("Apple")
-				}
-			);
-
-			var actual = instruction.Evaluate( new { Field = new int[0] } );
 
 			Assert.AreEqual( "", actual );
 		}
@@ -182,7 +104,7 @@ namespace Handlebars.Net.Test {
 		}
 
 		[TestMethod]
-		public void LoopTemplateInstructionNotEqualWithDifferentChildren() {
+		public void IfTemplateInstructionNotEqualWithDifferentChildren() {
 			Assert.AreNotEqual( new IfTemplateInstruction( "Field1", ArgumentType.Property, new[] {
 				new Literal("Literal1"),
 				new Literal("Literal2")
@@ -192,6 +114,9 @@ namespace Handlebars.Net.Test {
 		}
 
 		#endregion
+
+
+
 
 	}
 }

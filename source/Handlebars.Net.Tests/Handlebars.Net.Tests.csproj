@@ -57,6 +57,7 @@
     <Compile Include="HandlebarsTemplateCompilerTests.cs" />
     <Compile Include="LoopTemplateInstructionTests.cs" />
     <Compile Include="IfTemplateInstructionTests.cs" />
+    <Compile Include="ObjectExTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Handlebars.Net\Handlebars.Net.csproj">

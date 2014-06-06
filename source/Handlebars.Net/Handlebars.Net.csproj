@@ -42,6 +42,7 @@
     <Compile Include="BaseTemplateInstructionCompiler.cs" />
     <Compile Include="BaseTemplateInstruction.cs" />
     <Compile Include="Extensions\IEnumerableEx.cs" />
+    <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="FieldResolver.cs" />
     <Compile Include="HandlebarsTemplateCompiler.cs" />
     <Compile Include="IFieldResolver.cs" />
