@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -99,6 +100,19 @@ namespace Handlebars.Net.Test {
 			compiler.Compile( "{{#each Field.OtherField}}a{{Field}}" );
 		}
 
+		[TestMethod, Ignore]
+		public void HandlebarsTemplateCompilerIfInstructionWithTruthyProperty()
+		{
+			var actual = compiler.Compile("{{#if Field}}{{/if}}");
+
+			var expected = new List<ITemplateInstruction>
+			{
+				new IfTemplateInstruction ("Field", ArgumentType.Property, new ITemplateInstruction[0] )
+			};
+		}
+
+		#region Helper Methods
+
 		private static void CompareInstructions( IReadOnlyList<ITemplateInstruction> expected, IReadOnlyList<ITemplateInstruction> actual ) {
 			Assert.AreEqual( expected.Count, actual.Count );
 
@@ -107,5 +121,7 @@ namespace Handlebars.Net.Test {
 				Assert.AreEqual( expected[i], actual[i] );
 			}
 		}
+
+		#endregion
 	}
 }
