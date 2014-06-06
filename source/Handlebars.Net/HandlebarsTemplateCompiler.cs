@@ -20,7 +20,8 @@ namespace Handlebars.Net {
 
 		private void RegisterDefaultCompilers() {
 			RegisteredCompilers = new Dictionary<string, Type> {
-				{"each", typeof(LoopTemplateInstructionCompiler)}
+				{"each", typeof(LoopTemplateInstructionCompiler)},
+				{"if", typeof(IfTemplateInstructionCompiler)}
 			};
 		}
 

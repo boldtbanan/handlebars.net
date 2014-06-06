@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -100,14 +99,16 @@ namespace Handlebars.Net.Test {
 			compiler.Compile( "{{#each Field.OtherField}}a{{Field}}" );
 		}
 
-		[TestMethod, Ignore]
-		public void HandlebarsTemplateCompilerIfInstructionWithTruthyProperty()
-		{
-			var actual = compiler.Compile("{{#if Field}}{{/if}}");
+		[TestMethod]
+		public void HandlebarsTemplateCompilerIfInstructionWithTruthyProperty() {
+			var actual = compiler.Compile( "{{#if Field}}Literal{{/if}}" );
 
-			var expected = new List<ITemplateInstruction>
-			{
-				new IfTemplateInstruction ("Field", ArgumentType.Property, new ITemplateInstruction[0] )
+			var expected = new List<ITemplateInstruction> {
+				new IfTemplateInstruction ("Field", ArgumentType.Property, 
+					new List<ITemplateInstruction>				{
+						new Literal("Literal")
+					} 
+				)
 			};
 		}
 

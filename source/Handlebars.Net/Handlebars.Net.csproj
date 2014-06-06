@@ -47,6 +47,7 @@
     <Compile Include="HandlebarsTemplateCompiler.cs" />
     <Compile Include="IFieldResolver.cs" />
     <Compile Include="IfTemplateInstruction.cs" />
+    <Compile Include="IfTemplateInstructionCompiler.cs" />
     <Compile Include="ITemplateInstruction.cs" />
     <Compile Include="ITemplateInstructionCompiler.cs" />
     <Compile Include="ITemplateCompiler.cs" />

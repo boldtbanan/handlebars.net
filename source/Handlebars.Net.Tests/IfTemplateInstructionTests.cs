@@ -114,9 +114,5 @@ namespace Handlebars.Net.Test {
 		}
 
 		#endregion
-
-
-
-
 	}
 }
